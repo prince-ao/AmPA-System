@@ -1,0 +1,5 @@
+- Create a 3 way system where the three players are pet owners, shelters, and animal control officers. The pet owners registers to the app/website and they can
+  either browse for lost pets found around their area, or enter a request of a lost pet with a picture of the pet along with other indetifiers. The shelter sees
+  all these requests and is able to notify the owner if it is in their inventory, also there will be a systems that helps with this inventory matching, the shelter
+  also maintains the current inventory. On the animal control officer side, when he finds a pet he notifies everyone in that range that pet, if someone made a prior
+  request for that pet he is able to message that owner, else he brings the pet to a shelter.
