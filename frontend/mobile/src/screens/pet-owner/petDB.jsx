@@ -1,7 +1,7 @@
 import { StyleSheet, Text, View, TouchableOpacity } from 'react-native';
 import ActionBar from 'react-native-action-bar';
 import React, { useEffect, useState } from 'react';
-import { petsDB } from '../data/pets';
+import { petsDB } from '../../data/pets';
 import { ScrollView } from 'react-native-gesture-handler';
 
 const petDB = ({ navigation }) => {

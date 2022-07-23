@@ -3,14 +3,17 @@ import { LatLng, LeafletView } from 'react-native-leaflet-view';
 import React, { useState, useRef, useEffect } from 'react';
 import ActionBar from 'react-native-action-bar';
 import DrawerLayout from 'react-native-drawer-layout';
-import Menu from '../components/Menu';
-import Back from '../assets/arrow.png';
+import Menu from '../../components/Menu';
+import Back from '../../assets/arrow.png';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 const Home = ({ navigation }) => {
  const [drawerOpen, setDrawerOpen] = useState(false);
  const drawer = useRef(null);
 
- useEffect(() => {});
+ useEffect(() => {
+  AsyncStorage.removeItem('@chi-chi');
+ });
 
  const toggleDrawer = () => {
   setDrawerOpen(!drawerOpen);
