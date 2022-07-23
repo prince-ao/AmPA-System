@@ -1,0 +1,6 @@
+parser: typescript
+printWidth: 110
+tabWidth: 1
+useTabs: false
+semi: true
+singleQuote: true
