@@ -1,6 +1,7 @@
 import { StyleSheet, Text, View } from 'react-native';
 import React, { useEffect, useReducer, useState, useMemo, createContext } from 'react';
 import { createStackNavigator } from '@react-navigation/stack';
+
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import Toast from 'react-native-simple-toast';
 
@@ -9,6 +10,9 @@ import { ShelterHome } from './screens/pet-shelter';
 import { OfficerHome } from './screens/animal-rescue-officer';
 import Login from './screens/Login.jsx';
 import Signup from './screens/Signup.jsx';
+// move to officer dir
+import { ACO, PetEntry, Camera } from './screens';
+
 
 const Stack = createStackNavigator();
 const AuthContext = createContext();
@@ -149,6 +153,10 @@ export const AppStack = ({ navigation }) => {
      </>
     ) : state.userToken.role === 'pet-officer' ? (
      <>
+     {/*need to import them */}
+      <Stack.Screen name="Pet Entry" component={PetEntry} />
+      <Stack.Screen name="Camera" component={Camera} />
+      <Stack.Screen name="Animal Control Officer" component={ACO} />
       <Stack.Screen name="Officer Home" component={OfficerHome} />
      </>
     ) : null}
