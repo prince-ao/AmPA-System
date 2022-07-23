@@ -2,7 +2,6 @@ import { StyleSheet, Text, View, TextInput, Platform, Pressable, Button } from '
 import ActionBar from 'react-native-action-bar';
 import React, { useState, useEffect, useContext } from 'react';
 import { ScrollView } from 'react-native-gesture-handler';
-import Toast from 'react-native-simple-toast';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import AuthContext from '../AppStack';
 

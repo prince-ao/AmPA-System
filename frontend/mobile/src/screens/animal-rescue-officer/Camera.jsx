@@ -57,7 +57,7 @@ const CameraF = ({ navigation, route }) => {
        navigation.pop();
       }}
      >
-      <Image style={styles.image} source={require('../assets/photograph.png')} />
+      <Image style={styles.image} source={require('../../assets/photograph.png')} />
      </TouchableOpacity>
     </View>
    </Camera>

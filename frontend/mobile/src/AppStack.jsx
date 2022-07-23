@@ -3,16 +3,13 @@ import React, { useEffect, useReducer, useState, useMemo, createContext } from '
 import { createStackNavigator } from '@react-navigation/stack';
 
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import Toast from 'react-native-simple-toast';
+import Toast from 'react-native-toast-message';
 
 import { Home, PetDB, PetView, MPetReq } from './screens/pet-owner';
 import { ShelterHome } from './screens/pet-shelter';
-import { OfficerHome } from './screens/animal-rescue-officer';
+import { OfficerHome, ACO, Camera, PetEntry } from './screens/animal-rescue-officer';
 import Login from './screens/Login.jsx';
 import Signup from './screens/Signup.jsx';
-// move to officer dir
-import { ACO, PetEntry, Camera } from './screens';
-
 
 const Stack = createStackNavigator();
 const AuthContext = createContext();
@@ -67,10 +64,18 @@ export const AppStack = ({ navigation }) => {
        setUser(user);
        dispatch({ type: 'SIGN_IN', token: user });
       } else {
-       Toast.showWithGravity('Invalid username or password', Toast.SHORT, Toast.CENTER);
+       Toast.show({
+        type: 'warning',
+        text1: 'Feilds',
+        text2: 'Invalid username or password',
+       });
       }
      } else {
-      Toast.showWithGravity('Please sign up first', Toast.SHORT, Toast.CENTER);
+      Toast.show({
+       type: 'warning',
+       text1: 'Feilds',
+       text2: 'Please sign up first',
+      });
      }
     });
    },
@@ -80,7 +85,11 @@ export const AppStack = ({ navigation }) => {
     if (data['username'] && data['password'] && data['role']) {
      AsyncStorage.getItem('@chi-chi').then((user) => {
       if (user) {
-       Toast.showWithGravity('You already have an account with the same username', Toast.SHORT, Toast.CENTER);
+       Toast.show({
+        type: 'warning',
+        text1: 'Feilds',
+        text2: 'You already have an account with the same username',
+       });
       } else {
        setData({ username: data['username'], password: data['password'], role: data['role'] }).then(() => {
         navigation.navigate('Login');
@@ -88,7 +97,11 @@ export const AppStack = ({ navigation }) => {
       }
      });
     } else {
-     Toast.showWithGravity('Please fill out all fields', Toast.SHORT, Toast.CENTER);
+     Toast.show({
+      type: 'warning',
+      text1: 'Feilds',
+      text2: 'Please fill out all fields',
+     });
     }
     //dispatch({ type: 'SIGN_IN', token: null });
    },
@@ -153,7 +166,7 @@ export const AppStack = ({ navigation }) => {
      </>
     ) : state.userToken.role === 'pet-officer' ? (
      <>
-     {/*need to import them */}
+      {/*need to import them */}
       <Stack.Screen name="Pet Entry" component={PetEntry} />
       <Stack.Screen name="Camera" component={Camera} />
       <Stack.Screen name="Animal Control Officer" component={ACO} />
@@ -161,6 +174,7 @@ export const AppStack = ({ navigation }) => {
      </>
     ) : null}
    </Stack.Navigator>
+   <Toast />
   </AuthContext.Provider>
  );
 };
