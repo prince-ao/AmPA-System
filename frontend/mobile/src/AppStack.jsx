@@ -11,7 +11,7 @@ const AppStack = () => {
    screenOptions={{
     headerShown: false,
    }}
-   initialRouteName="Animal Control Officer"
+   initialRouteName="Home"
   >
    <Stack.Screen name="Home" component={Home} />
    <Stack.Screen name="Animal Control Officer" component={ACO} />
