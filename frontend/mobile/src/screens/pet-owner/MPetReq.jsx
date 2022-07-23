@@ -70,4 +70,9 @@ const styles = StyleSheet.create({
   borderWidth: 1,
   padding: 10,
  },
+ bar: {
+  height: 70,
+  backgroundColor: '#8b5400',
+  elevation: 0,
+ },
 });
