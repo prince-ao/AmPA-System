@@ -1,16 +1,24 @@
-import { StyleSheet, Text, View, TouchableOpacity, Image } from 'react-native';
+import { StyleSheet, Text, View, TouchableOpacity, Image, Button } from 'react-native';
 import { LatLng, LeafletView } from 'react-native-leaflet-view';
-import React, { useState, useRef, useEffect } from 'react';
+import React, { useState, useRef, useEffect, useContext } from 'react';
 import ActionBar from 'react-native-action-bar';
 import { petsDB } from '../../data/pets';
+import AsyncStorage from '@react-native-async-storage/async-storage';
+import AuthContext from '../../AppStack';
 
 const ShelterHome = ({ navigation }) => {
  const [pets, setPets] = useState(petsDB);
+
+ useEffect(() => {
+  //AsyncStorage.removeItem('@chi-chi');
+ }, []);
+
+ const { signOut } = useContext(AuthContext);
  return (
   <View>
-   <ActionBar containerStyle={styles.bar} backgroundColor="#8b5400" />
+   <ActionBar containerStyle={styles.bar} backgroundColor="#8b5400" title={'Pet Shelter'} />
    <View style={styles.container}>
-    {pets.map((vals, index) => {
+    {/* {pets.map((vals, index) => {
      return (
       <View>
        <View>
@@ -44,7 +52,7 @@ const ShelterHome = ({ navigation }) => {
        </View>
       </View>
      );
-    })}
+    })} */}
     <Button title="Add New Pet" onPress={() => navigation.push('Add New Pet')} />
    </View>
   </View>

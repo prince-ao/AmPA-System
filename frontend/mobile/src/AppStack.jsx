@@ -49,26 +49,33 @@ export const AppStack = ({ navigation }) => {
  );
 
  useEffect(() => {
-  getData().then((user) => {
-   setUser(user);
-   dispatch({ type: 'RESTORE_TOKEN', token: user });
+  getData().then((users) => {
+   if (users) {
+    for (let i = 0; i < users.length; i++) {
+     if (users[i].username === user.username && users[i].password === user.password) {
+      dispatch({ type: 'RESTORE_TOKEN', token: user });
+     }
+    }
+   }
   });
  }, []);
 
  const authContext = useMemo(
   () => ({
    signIn: async (data) => {
-    getData().then((user) => {
-     if (user) {
-      if (user.username === data['username'] && user.password === data['password']) {
-       setUser(user);
-       dispatch({ type: 'SIGN_IN', token: user });
-      } else {
-       Toast.show({
-        type: 'error',
-        text1: 'Feilds',
-        text2: 'Invalid username or password',
-       });
+    getData().then((users) => {
+     if (users) {
+      for (let i = 0; i < users.length; i++) {
+       if (users[i].username === data['username'] && users[i].password === data['password']) {
+        setUser(users[i]);
+        dispatch({ type: 'SIGN_IN', token: user });
+       } else {
+        Toast.show({
+         type: 'error',
+         text1: 'Feilds',
+         text2: 'Invalid username or password',
+        });
+       }
       }
      } else {
       Toast.show({
@@ -83,18 +90,25 @@ export const AppStack = ({ navigation }) => {
    signUp: async (data) => {
     // set user to local storage
     if (data['username'] && data['password'] && data['role']) {
-     AsyncStorage.getItem('@chi-chi').then((user) => {
-      if (user) {
-       Toast.show({
-        type: 'error',
-        text1: 'Feilds',
-        text2: 'You already have an account with the same username',
-       });
-      } else {
-       setData({ username: data['username'], password: data['password'], role: data['role'] }).then(() => {
-        navigation.push('Login');
-       });
+     getData().then((users) => {
+      if (users) {
+       for (let i = 0; i < users.length; i++) {
+        if (users[i].username === data['username']) {
+         Toast.show({
+          type: 'error',
+          text1: 'Feilds',
+          text2: 'You already have an account with the same username',
+         });
+         return;
+        }
+       }
       }
+      setUser({ username: data['username'], password: data['password'], role: data['role'] });
+      setData([{ username: data['username'], password: data['password'], role: data['role'] }], users).then(
+       () => {
+        navigation.push('Login');
+       }
+      );
      });
     } else {
      Toast.show({
@@ -109,9 +123,10 @@ export const AppStack = ({ navigation }) => {
   []
  );
 
- const setData = async (data) => {
-  const jsonVal = JSON.stringify(data);
-  await AsyncStorage.setItem('@chi-chi', jsonVal);
+ const setData = async (data, oldData) => {
+  if (!oldData) oldData = [];
+  const newData = [...oldData, ...data];
+  await AsyncStorage.setItem('@chi-chi', JSON.stringify(newData));
  };
 
  /**
