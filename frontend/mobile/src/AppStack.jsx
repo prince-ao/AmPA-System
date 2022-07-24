@@ -13,7 +13,6 @@ import Signup from './screens/Signup.jsx';
 
 const Stack = createStackNavigator();
 const AuthContext = createContext();
-export default AuthContext;
 
 export const AppStack = ({ navigation }) => {
  const [user, setUser] = useState(null);
@@ -55,7 +54,7 @@ export const AppStack = ({ navigation }) => {
   getData().then((users) => {
    if (users) {
     for (let i = 0; i < users.length; i++) {
-     if (users[i].username === user.username && users[i].password === user.password) {
+     if (users[i].username === user?.username && users[i].password === user?.password) {
       dispatch({ type: 'RESTORE_TOKEN', token: user });
      }
     }
@@ -72,13 +71,21 @@ export const AppStack = ({ navigation }) => {
        if (users[i].username === data['username'] && users[i].password === data['password']) {
         setUser(users[i]);
         dispatch({ type: 'SIGN_IN', token: user });
-       } else {
         Toast.show({
-         type: 'error',
-         text1: 'Feilds',
-         text2: 'Invalid username or password',
+         type: 'success',
+         text1: `Hello ${users[i].username} 👋`,
+         text2: 'You are logged in',
         });
+        break;
        }
+      }
+
+      if (!user) {
+       Toast.show({
+        type: 'error',
+        text1: 'Feilds',
+        text2: 'Invalid username or password',
+       });
       }
      } else {
       Toast.show({
@@ -102,16 +109,18 @@ export const AppStack = ({ navigation }) => {
           text1: 'Feilds',
           text2: 'You already have an account with the same username',
          });
-         return;
+         return false;
         }
        }
       }
       setUser({ username: data['username'], password: data['password'], role: data['role'] });
-      setData([{ username: data['username'], password: data['password'], role: data['role'] }], users).then(
-       () => {
-        navigation.push('Login');
-       }
-      );
+      setData([{ username: data['username'], password: data['password'], role: data['role'] }], users);
+      Toast.show({
+       type: 'success',
+       text1: 'New account',
+       text2: 'Created a new account with the username: ' + data['username'],
+      });
+      return true;
      });
     } else {
      Toast.show({
@@ -196,5 +205,5 @@ export const AppStack = ({ navigation }) => {
   </AuthContext.Provider>
  );
 };
-
+export default AuthContext;
 const styles = StyleSheet.create({});
