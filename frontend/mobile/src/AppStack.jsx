@@ -17,6 +17,9 @@ export default AuthContext;
 
 export const AppStack = ({ navigation }) => {
  const [user, setUser] = useState(null);
+ const [_, updateState] = useState({
+  lastRefreshed: Date(Date.now()).toString(),
+ });
 
  const [state, dispatch] = useReducer(
   (prevState, action) => {
@@ -92,7 +95,9 @@ export const AppStack = ({ navigation }) => {
        });
       } else {
        setData({ username: data['username'], password: data['password'], role: data['role'] }).then(() => {
-        navigation.push('Login');
+        updateState({
+         lastRefreshed: Date(Date.now()).toString(),
+        });
        });
       }
      });

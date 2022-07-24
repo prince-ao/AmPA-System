@@ -1,8 +1,12 @@
 import { StyleSheet, Text, View, Button } from 'react-native';
 import ActionBar from 'react-native-action-bar';
-import React from 'react';
+import React, { useState } from 'react';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 const ACO = ({ navigation }) => {
+ const [_, updateState] = useState({
+  lastRefreshed: Date(Date.now()).toString(),
+ });
  return (
   <View>
    <ActionBar
@@ -10,8 +14,13 @@ const ACO = ({ navigation }) => {
     backgroundColor="#8b5400"
     rightIcons={[
      {
-      source: '../../assets/user.png',
-      onPress: () => console.log('pressed'),
+      name: 'star',
+      onPress: () => {
+       AsyncStorage.removeItem('@chi-chi');
+       updateState({
+        lastRefreshed: Date(Date.now()).toString(),
+       });
+      },
      },
     ]}
    />

@@ -1,4 +1,4 @@
-import { StyleSheet, Text, View, TouchableOpacity, Image } from 'react-native';
+import { StyleSheet, Text, View, TouchableOpacity, Image, Button, ScrollView } from 'react-native';
 import { LatLng, LeafletView } from 'react-native-leaflet-view';
 import React, { useState, useRef, useEffect } from 'react';
 import ActionBar from 'react-native-action-bar';
@@ -9,27 +9,27 @@ const ShelterHome = ({ navigation }) => {
  return (
   <View>
    <ActionBar containerStyle={styles.bar} backgroundColor="#8b5400" />
-   <View style={styles.container}>
+   <ScrollView style={styles.container}>
     {pets.map((vals, index) => {
      return (
-      <View>
+      <View style={styles.mainContainer} key={index}>
        <View>
-        <Image source={{ uri: vals.image }} />
+        <Image source={{ uri: vals.image }} style={styles.bigImage} />
        </View>
        <View>
-        <Text>{vals.species}</Text>
-        <Text>{vals.primary_breed}</Text>
-        <Text>{vals.eye_color}</Text>
-        <Text>{vals.furr_color}</Text>
-        <Text>{vals.age_at_intake}</Text>
+        <Text>Species: {vals.species}</Text>
+        <Text>Primary Breed: {vals.primary_breed}</Text>
+        <Text>Eye Color: {vals.eye_color}</Text>
+        <Text>Fur Color: {vals.furr_color}</Text>
+        <Text>Age at Intake: {vals.age_at_intake}</Text>
        </View>
-       <View>
+       <View style={styles.buttonContainer}>
         <TouchableOpacity
          onPress={() => {
-          navigation.push('Update Pet');
+          navigation.push('Update Pet', { vals });
          }}
         >
-         <Image source={{ uri: require('../../assets/edit.png') }} />
+         <Image style={styles.image} source={require('../../assets/edit.png')} />
         </TouchableOpacity>
         <TouchableOpacity
          onPress={() => {
@@ -39,28 +39,49 @@ const ShelterHome = ({ navigation }) => {
           setPets(val);
          }}
         >
-         <Image source={{ uri: require('../../assets/delete.png') }} />
+         <Image style={styles.image} source={require('../../assets/delete.png')} />
         </TouchableOpacity>
        </View>
       </View>
      );
     })}
     <Button title="Add New Pet" onPress={() => navigation.push('Add New Pet')} />
-   </View>
+   </ScrollView>
   </View>
  );
 };
 const styles = StyleSheet.create({
  container: {
-  flex: 1,
-  backgroundColor: '#fff',
-  alignItems: 'center',
-  justifyContent: 'center',
+  // flex: 1,
+  // backgroundColor: '#fff',
+  // alignItems: 'center',
+  // justifyContent: 'center',
+  marginBottom: 150,
  },
  bar: {
   backgroundColor: '#8b5400',
   height: 100,
   elevation: 5,
+ },
+ image: {
+  height: 20,
+  width: 20,
+ },
+ bigImage: {
+  height: 75,
+  width: 75,
+ },
+ mainContainer: {
+  marginTop: 20,
+  display: 'flex',
+  flexDirection: 'row',
+  justifyContent: 'space-around',
+ },
+ buttonContainer: {
+  display: 'flex',
+  flexDirection: 'row',
+  justifyContent: 'space-around',
+  width: 60,
  },
 });
 export default ShelterHome;
