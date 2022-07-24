@@ -6,8 +6,8 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import Toast from 'react-native-toast-message';
 
 import { Home, PetDB, PetView, MPetReq } from './screens/pet-owner';
-import { ShelterHome } from './screens/pet-shelter';
-import { OfficerHome, ACO, Camera, PetEntry } from './screens/animal-rescue-officer';
+import { ShelterHome, UpdatePet, AddNewPet } from './screens/pet-shelter';
+import { ACO, Camera, PetEntry } from './screens/animal-rescue-officer';
 import Login from './screens/Login.jsx';
 import Signup from './screens/Signup.jsx';
 
@@ -65,14 +65,14 @@ export const AppStack = ({ navigation }) => {
        dispatch({ type: 'SIGN_IN', token: user });
       } else {
        Toast.show({
-        type: 'warning',
+        type: 'error',
         text1: 'Feilds',
         text2: 'Invalid username or password',
        });
       }
      } else {
       Toast.show({
-       type: 'warning',
+       type: 'error',
        text1: 'Feilds',
        text2: 'Please sign up first',
       });
@@ -86,19 +86,19 @@ export const AppStack = ({ navigation }) => {
      AsyncStorage.getItem('@chi-chi').then((user) => {
       if (user) {
        Toast.show({
-        type: 'warning',
+        type: 'error',
         text1: 'Feilds',
         text2: 'You already have an account with the same username',
        });
       } else {
        setData({ username: data['username'], password: data['password'], role: data['role'] }).then(() => {
-        navigation.navigate('Login');
+        navigation.push('Login');
        });
       }
      });
     } else {
      Toast.show({
-      type: 'warning',
+      type: 'error',
       text1: 'Feilds',
       text2: 'Please fill out all fields',
      });
@@ -163,14 +163,14 @@ export const AppStack = ({ navigation }) => {
     ) : state.userToken.role === 'pet-shelter' ? (
      <>
       <Stack.Screen name="Shelter Home" component={ShelterHome} />
+      <Stack.Screen name="Update Pet" component={UpdatePet} />
+      <Stack.Screen name="Add New Pet" component={AddNewPet} />
      </>
     ) : state.userToken.role === 'pet-officer' ? (
      <>
-      {/*need to import them */}
+      <Stack.Screen name="Animal Control Officer" component={ACO} />
       <Stack.Screen name="Pet Entry" component={PetEntry} />
       <Stack.Screen name="Camera" component={Camera} />
-      <Stack.Screen name="Animal Control Officer" component={ACO} />
-      <Stack.Screen name="Officer Home" component={OfficerHome} />
      </>
     ) : null}
    </Stack.Navigator>

@@ -5,7 +5,16 @@ import React from 'react';
 const ACO = ({ navigation }) => {
  return (
   <View>
-   <ActionBar containerStyle={styles.bar} backgroundColor="#8b5400" />
+   <ActionBar
+    containerStyle={styles.bar}
+    backgroundColor="#8b5400"
+    rightIcons={[
+     {
+      source: '../../assets/user.png',
+      onPress: () => console.log('pressed'),
+     },
+    ]}
+   />
    <View>
     <Button title="Found a pet" onPress={() => navigation.push('Pet Entry')} />
    </View>

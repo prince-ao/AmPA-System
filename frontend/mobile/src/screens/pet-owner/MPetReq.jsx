@@ -55,7 +55,19 @@ const MPetReq = ({ navigation }) => {
      </Pressable>
     </View>
     <Button title="Add image" />
-    <Button title="Submit" color="green" />
+    <Button
+     title="Submit"
+     color="green"
+     onPress={() => {
+      setForm({
+       breed: '',
+       age: 0,
+       fur_color: '',
+       eye_color: '',
+       altered: false,
+      });
+     }}
+    />
    </ScrollView>
   </View>
  );

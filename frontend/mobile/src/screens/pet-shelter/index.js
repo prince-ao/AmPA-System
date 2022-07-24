@@ -1,3 +1,5 @@
 import ShelterHome from './Home.jsx';
+import UpdatePet from './UpdatePet';
+import AddNewPet from './AddNewPet';
 
-export { ShelterHome };
+export { ShelterHome, UpdatePet, AddNewPet };
