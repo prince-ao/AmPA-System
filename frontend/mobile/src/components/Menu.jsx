@@ -3,14 +3,12 @@ import { View, ScrollView, Text, TouchableOpacity, StyleSheet } from 'react-nati
 
 import { MENU_LIST } from '../utils/constants';
 
-const Menu = ({ navigation, username }) => {
- console.log(username);
+const Menu = ({ navigation }) => {
  return (
   <View style={styles.container}>
    <View style={styles.TitleWrapper}>
     <Text style={styles.text}>
      {'Hello '}
-     {username}
      {'👋,'}
     </Text>
    </View>

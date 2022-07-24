@@ -13,9 +13,10 @@ import Signup from './screens/Signup.jsx';
 
 const Stack = createStackNavigator();
 const AuthContext = createContext();
+export default AuthContext;
 
 export const AppStack = ({ navigation }) => {
- const [user, setUser] = useState(null);
+ const [user, setUser] = useState({});
  const [_, updateState] = useState({
   lastRefreshed: Date(Date.now()).toString(),
  });
@@ -69,8 +70,11 @@ export const AppStack = ({ navigation }) => {
      if (users) {
       for (let i = 0; i < users.length; i++) {
        if (users[i].username === data['username'] && users[i].password === data['password']) {
-        setUser(users[i]);
-        dispatch({ type: 'SIGN_IN', token: user });
+        setUser({ username: data['username'], password: data['password'], role: users[i].role });
+        dispatch({
+         type: 'SIGN_IN',
+         token: { username: data['username'], password: data['password'], role: users[i].role },
+        });
         Toast.show({
          type: 'success',
          text1: `Hello ${users[i].username} 👋`,
@@ -183,7 +187,7 @@ export const AppStack = ({ navigation }) => {
     ) : state.userToken.role === 'pet-owner' ? (
      <>
       <Stack.Screen name="Home" component={Home} />
-      <Stack.Screen name="Pet Database" component={PetDB} />
+      <Stack.Screen name="Pets Database" component={PetDB} />
       <Stack.Screen name="Make Pet Request" component={MPetReq} />
       <Stack.Screen name="Pet View" component={PetView} />
      </>
@@ -205,5 +209,4 @@ export const AppStack = ({ navigation }) => {
   </AuthContext.Provider>
  );
 };
-export default AuthContext;
 const styles = StyleSheet.create({});

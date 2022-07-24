@@ -18,7 +18,8 @@ const petDB = ({ navigation }) => {
     leftIconImageStyle={styles.icon}
     onLeftPress={() => navigation.pop()}
     title={'Pet Database'}
-    titleContainerStyle={{ alignItems: 'center', marginRight: 50 }}
+    titleStyle={{ fontSize: 20, color: 'white', textAlign: 'left' }}
+    titleContainerStyle={{ alignItems: 'center', marginRight: 30, marginTop: 30 }}
    />
    <View>
     <TouchableOpacity>
