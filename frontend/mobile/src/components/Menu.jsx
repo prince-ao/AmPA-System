@@ -10,7 +10,6 @@ const Menu = ({ navigation, username }) => {
    <View style={styles.TitleWrapper}>
     <Text style={styles.text}>
      {'Hello '}
-     {username}
      {'👋,'}
     </Text>
    </View>

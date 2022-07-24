@@ -66,8 +66,11 @@ export const AppStack = ({ navigation }) => {
      if (users) {
       for (let i = 0; i < users.length; i++) {
        if (users[i].username === data['username'] && users[i].password === data['password']) {
-        setUser(users[i]);
-        dispatch({ type: 'SIGN_IN', token: user });
+        setUser({ username: data['username'], password: data['password'], role: data['role'] });
+        dispatch({
+         type: 'SIGN_IN',
+         token: { username: data['username'], password: data['password'], role: data['role'] },
+        });
         Toast.show({
          type: 'success',
          text1: `Hello ${users[i].username} 👋`,
