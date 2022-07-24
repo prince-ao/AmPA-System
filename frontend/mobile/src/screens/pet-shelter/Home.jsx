@@ -16,7 +16,16 @@ const ShelterHome = ({ navigation }) => {
  const { signOut } = useContext(AuthContext);
  return (
   <View>
-   <ActionBar containerStyle={styles.bar} backgroundColor="#8b5400" />
+   <ActionBar
+    containerStyle={styles.bar}
+    backgroundColor="#8b5400"
+    rightIcon={[
+     {
+      source: require('../../assets/logout.png'),
+      onPress: () => signOut(),
+     },
+    ]}
+   />
    <ScrollView style={styles.container}>
     {pets.map((vals, index) => {
      return (

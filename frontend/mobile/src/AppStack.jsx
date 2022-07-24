@@ -136,7 +136,7 @@ export const AppStack = ({ navigation }) => {
   * Object to store the user's pet data. will look like:
   * {
   *  role: 'pet-owner', //or pet-shelter, or pet-officer
-  *  username: '',
+  *  d  '',
   *  password: '',
   * }
   *

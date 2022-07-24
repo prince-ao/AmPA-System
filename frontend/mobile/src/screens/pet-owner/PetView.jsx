@@ -15,7 +15,7 @@ const PetView = ({ navigation, route }) => {
     titleContainerStyle={{ alignItems: 'center', marginRight: 50 }}
    />
    <Text>{route.params.obj.species}</Text>
-   <Image source={{ uri: route.params.obj.image }} />
+   <Image source={{ uri: route.params.obj.image }} style="width: 75px; height: 75px" />
    <Text>Species: {route.params.obj.species}</Text>
    <Text>Breed: {route.params.obj.primary_breed}</Text>
    <Text>Age: {route.params.obj.age_at_intake}</Text>
