@@ -8,7 +8,7 @@ import Back from '../../assets/arrow.png';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import AuthContext from '../../AppStack';
 
-const Home = ({ navigation }) => {
+const Home = ({ navigation, user }) => {
  const [drawerOpen, setDrawerOpen] = useState(false);
  const drawer = useRef(null);
 
@@ -72,6 +72,9 @@ const Home = ({ navigation }) => {
     leftIconName={'menu'}
     leftIconImageStyle={styles.icon}
     onLeftPress={toggleDrawer}
+    title={'Home'}
+    titleStyle={{ fontSize: 20, color: 'white', textAlign: 'left' }}
+    titleContainerStyle={{ alignItems: 'center', marginRight: 40, marginTop: 30 }}
    />
    <View style={styles.container}>
     {/* doesnt work for android */}
@@ -93,7 +96,7 @@ const styles = StyleSheet.create({
  },
  bar: {
   backgroundColor: '#8b5400',
-  height: 100,
+  height: 70,
   elevation: 5,
  },
  icon: {

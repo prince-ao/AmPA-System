@@ -3,23 +3,27 @@ import { View, ScrollView, Text, TouchableOpacity, StyleSheet } from 'react-nati
 
 import { MENU_LIST } from '../utils/constants';
 
-const Menu = ({ navigation }) => {
+const Menu = ({ navigation, username }) => {
+ console.log(username);
  return (
   <View style={styles.container}>
+   <View style={styles.TitleWrapper}>
+    <Text style={styles.text}>
+     {'Hello '}
+     {username}
+     {'👋,'}
+    </Text>
+   </View>
    <ScrollView>
-    <View style={styles.TitleWrapper}>
-     <Text style={styles.text}>{'AmPA System'}</Text>
+    <View style={{ alignItems: 'center' }}>
+     {MENU_LIST.map((val, i) => (
+      <TouchableOpacity key={val.index} onPress={() => navigation.push(val.route)} style={styles.clickOption}>
+       <View style={styles.petDatabaseWrapper}>
+        <Text style={styles.petDatabase}>{val.name}</Text>
+       </View>
+      </TouchableOpacity>
+     ))}
     </View>
-    <TouchableOpacity onPress={() => navigation.push('Pet Database')} style={styles.clickOption}>
-     <View style={styles.petDatabaseWrapper}>
-      <Text style={styles.petDatabase}>Pet Database</Text>
-     </View>
-    </TouchableOpacity>
-    <TouchableOpacity onPress={() => navigation.push('Make Pet Request')} style={styles.clickOption}>
-     <View style={styles.petDatabaseWrapper}>
-      <Text style={styles.petDatabase}>Send Missing Pet Request</Text>
-     </View>
-    </TouchableOpacity>
    </ScrollView>
   </View>
  );
@@ -29,12 +33,10 @@ const styles = StyleSheet.create({
  container: {
   flex: 1,
   backgroundColor: '#8b5400',
-  alignItems: 'center',
-  justifyContent: 'center',
  },
  text: {
   color: 'white',
-  fontSize: 30,
+  fontSize: 25,
   paddingLeft: 20,
   paddingTop: 16,
  },
@@ -43,19 +45,20 @@ const styles = StyleSheet.create({
   marginBottom: 20,
  },
  petDatabaseWrapper: {
-  width: 300,
-  height: 70,
+  height: 50,
   backgroundColor: 'white',
-  alignItems: 'center',
+  alignItems: 'flex-start',
   justifyContent: 'center',
-  borderRadius: 30,
+  paddingLeft: 20,
+  borderRadius: 5,
+  marginHorizontal: 15,
  },
  petDatabase: {
   fontSize: 20,
  },
  clickOption: {
   width: '100%',
-  marginBottom: 30,
+  marginBottom: 15,
  },
 });
 
