@@ -1,11 +1,19 @@
 import { StyleSheet, Text, View, TouchableOpacity, Image, Button, ScrollView } from 'react-native';
 import { LatLng, LeafletView } from 'react-native-leaflet-view';
-import React, { useState, useRef, useEffect } from 'react';
+import React, { useState, useRef, useEffect, useContext } from 'react';
 import ActionBar from 'react-native-action-bar';
 import { petsDB } from '../../data/pets';
+import AsyncStorage from '@react-native-async-storage/async-storage';
+import AuthContext from '../../AppStack';
 
 const ShelterHome = ({ navigation }) => {
  const [pets, setPets] = useState(petsDB);
+
+ useEffect(() => {
+  //AsyncStorage.removeItem('@chi-chi');
+ }, []);
+
+ const { signOut } = useContext(AuthContext);
  return (
   <View>
    <ActionBar containerStyle={styles.bar} backgroundColor="#8b5400" />

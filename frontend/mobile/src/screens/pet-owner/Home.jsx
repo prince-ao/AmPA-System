@@ -1,18 +1,19 @@
-import { StyleSheet, Text, View, TouchableOpacity } from 'react-native';
+import { StyleSheet, Text, View, TouchableOpacity, Button } from 'react-native';
 import { LatLng, LeafletView } from 'react-native-leaflet-view';
-import React, { useState, useRef, useEffect } from 'react';
+import React, { useState, useRef, useEffect, useContext } from 'react';
 import ActionBar from 'react-native-action-bar';
 import DrawerLayout from 'react-native-drawer-layout';
 import Menu from '../../components/Menu';
 import Back from '../../assets/arrow.png';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import AuthContext from '../../AppStack';
 
 const Home = ({ navigation }) => {
  const [drawerOpen, setDrawerOpen] = useState(false);
  const drawer = useRef(null);
 
  useEffect(() => {
-  AsyncStorage.removeItem('@chi-chi');
+  //AsyncStorage.removeItem('@chi-chi');
  });
 
  const toggleDrawer = () => {
@@ -24,6 +25,8 @@ const Home = ({ navigation }) => {
    drawer.current.openDrawer();
   }
  };
+
+ const { signOut } = useContext(AuthContext);
 
  const mapMarkers = [
   {
@@ -74,6 +77,7 @@ const Home = ({ navigation }) => {
     {/* doesnt work for android */}
     <LeafletView mapMarkers={mapMarkers} mapCenterPosition={{ lat: 30.266666, lng: -97.73333 }} zoom={7} />
    </View>
+   <Button title="Sign Out" onPress={() => signOut()} />
   </DrawerLayout>
  );
 };
